@@ -28,6 +28,17 @@ colleagues. The pin board can be on
 ![flow diagram for using Pins with RStudio
 Connect](example_pins_workflow.png)
 
+## I don't quite get the use case?
+
+A "yes" to any of these indicates a good use case for pins!
+
+-   Using read_csv() to bring in emailed data?
+-   Saving .Rds or .RData objects to be called later?
+-   Sharing your model or data across multiple apps?
+-   Redeploying your app every time the supporting data is updated?
+
+Now revisit that flow diagram then consider the examples below.
+
 ```{r, eval=F, echo=T}
 
 library(pins)
@@ -154,3 +165,15 @@ blocal %>% pin_list()
 # let's go to a new session and download that text file
 
 ```
+
+## How to get started
+
+Katie's [great PDF
+guide](https://colorado.rstudio.com/rsc/protip-pins/protip_pins.pdf "Katie's getting started guide!")
+that lives on our public Connect.
+
+Our [Access to Care example
+project](https://solutions.rstudio.com/example/access_to_care/) with
+free code!
+
+Our [Bike Prediction example project](https://solutions.rstudio.com/example/bike_predict/) with free code!
