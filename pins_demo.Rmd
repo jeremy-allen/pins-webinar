@@ -1,0 +1,156 @@
+---
+title: "Pins Demo"
+author: "Jeremy Allen"
+date: '2022-04-21'
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Pins
+
+The pins package helps you publish data sets, models, and other R
+objects, making it easy to share them across projects and with your
+colleagues. The pin board can be on
+
+-   local or temp folder
+-   Shared folder (like Dropbox)
+-   RStudio Connect
+-   Amazon S3
+-   Azure storage
+-   Microsoft 365 (OneDrive and SharePoint) - Google Cloud
+
+![flow diagram for using Pins with RStudio
+Connect](example_pins_workflow.png)
+
+```{r, eval=F, echo=T}
+
+library(pins)
+library(fs)
+
+```
+
+What version of pins are we using?
+
+```{r, eval=F, echo=T}
+
+packageVersion("pins")
+
+```
+
+## AWS S3 buckets
+
+Note the use of environment variables for my key ID and key.
+
+#### Create the board
+
+```{r, eval=F, echo=T}
+
+# Amazon AWS S3 board
+
+bs3 <- board_s3(
+  Sys.getenv("AWS_BUCKET"),
+  prefix = "demo",
+  versioned = TRUE,
+  access_key = Sys.getenv("AWS_ACCESS_KEY_ID"),
+  secret_access_key = Sys.getenv("AWS_SECRET_ACESS_KEY"),
+  session_token = NULL,
+  credential_expiration = NULL,
+  profile = NULL,
+  region = Sys.getenv("AWS_REGION"),
+  endpoint = NULL,
+  cache = NULL
+)
+
+```
+
+#### What's already on the board in my S3 bucket
+
+```{r, eval=F, echo=T}
+
+# anything on there now?
+bs3 %>% pin_list()
+
+```
+
+#### Write more to the board in my S3 bucket
+
+```{r, eval=F, echo=T}
+
+# write data frames to the board
+bs3 %>% pin_write(islands)
+
+```
+
+pins wrote the data frame as an rds file
+
+#### Interact with the pinned objects on the board
+
+```{r, eval=F, echo=T}
+
+bs3 %>% pin_list()
+
+bs3 %>% pin_read("islands")
+
+bs3 %>% pin_search(search = "CO2")
+
+```
+
+## RStudio Connect as a board
+
+```{r eval=F, echo=T}
+
+# RStudio Connect board
+
+# make sure package rsconnect is already installed
+brsc <- board_rsconnect(server = "colorado.rstudio.com")
+
+# grab a coffee while this runs
+brsc %>% pin_list()
+
+brsc %>% pin_search(search = "codenames")
+
+cn <- brsc %>% pin_read(name = "katie.masiello/codenames")
+
+View(cn)
+
+cache_info()
+
+```
+
+## Local board
+
+```{r, eval=F, echo=T}
+
+# Local board
+
+blocal <- board_local() # share data across R sessions on the same computer
+
+blocal %>% pin_write(mtcars)
+blocal %>% pin_write(CO2)
+blocal %>% pin_write(Orange)
+
+blocal %>% pin_list()
+
+# upload file instead of pinning R objects
+
+pin_upload(
+  board = blocal,
+  paths = "msg.txt",
+  name = "message_in_bottle",
+  title = "Shared Bottle Message",
+  description = NULL,
+  metadata = NULL
+)
+
+
+blocal %>% pin_list()
+
+# let's go to a new session and download that text file
+
+```
