@@ -176,4 +176,6 @@ Our [Access to Care example
 project](https://solutions.rstudio.com/example/access_to_care/) with
 free code!
 
-Our [Bike Prediction example project](https://solutions.rstudio.com/example/bike_predict/) with free code!
+Our [Bike Prediction example
+project](https://solutions.rstudio.com/example/bike_predict/) with free
+code!
