@@ -9,8 +9,11 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE) 
 ```
+
+<br>
+<br>
 
 # Pins
 
@@ -25,8 +28,12 @@ colleagues. The pin board can be on
 -   Azure storage
 -   Microsoft 365 (OneDrive and SharePoint) - Google Cloud
 
+<br> <br>
+
 ![flow diagram for using Pins with RStudio
 Connect](example_pins_workflow.png)
+
+<br> <br>
 
 ## I don't quite get the use case?
 
@@ -53,6 +60,9 @@ What version of pins are we using?
 packageVersion("pins")
 
 ```
+
+<br>
+<br>
 
 ## AWS S3 buckets
 
@@ -112,6 +122,9 @@ bs3 %>% pin_search(search = "CO2")
 
 ```
 
+<br>
+<br>
+
 ## RStudio Connect as a board
 
 ```{r eval=F, echo=T}
@@ -133,6 +146,9 @@ View(cn)
 cache_info()
 
 ```
+
+<br>
+<br>
 
 ## Local board
 
@@ -165,6 +181,9 @@ blocal %>% pin_list()
 # let's go to a new session and download that text file
 
 ```
+
+<br>
+<br>
 
 ## How to get started
 
